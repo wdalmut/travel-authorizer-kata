@@ -4,10 +4,15 @@ namespace spec;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Traveller;
+use Travel;
 
 class TravelManagerSpec extends ObjectBehavior
 {
+    function let(Travel $travel)
+    {
+        $this->beConstructedWith($travel);
+    }
+
     function it_is_initializable()
     {
         $this->shouldHaveType('TravelManager');

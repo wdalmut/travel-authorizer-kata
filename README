@@ -24,10 +24,11 @@ Each authorized can vote just once
 Elephant Carpaccio
 ------------------
 
-0) Always on trip
-1) Only one authorizer
-2) Just different authorizers
-3) Add the risk authorizers with always yes
-4) The risk understand places
-5) Add the override authorizer
+ Always on trip
+ Add travel with departure and arrival places
+ Only one authorizer
+ Just different authorizers
+ Add the risk authorizers with always yes
+ The risk understand places
+ Add the override authorizer
 
