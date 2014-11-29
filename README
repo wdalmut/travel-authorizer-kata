@@ -1,0 +1,33 @@
+Authorization Kata
+------------------
+
+In the travel business an employee can travel just if three kind
+of authorizers allows the travel.
+
+In order to travel you need:
+a set of OKs by the your authorizers and 1 OK by your Risk
+authorizer
+
+The risk authorizer should vote always yes and he says no only if the
+trip has a connection with one of those places because very dangerous:
+
+ * NAP
+ * ROM
+ * GOA
+
+
+The override authorizer can force the travel at anytime because he has the
+role to skip all other checks
+
+Each authorized can vote just once
+
+Elephant Carpaccio
+------------------
+
+0) Always on trip
+1) Only one authorizer
+2) Just different authorizers
+3) Add the risk authorizers with always yes
+4) The risk understand places
+5) Add the override authorizer
+
