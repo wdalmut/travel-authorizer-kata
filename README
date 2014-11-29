@@ -9,7 +9,7 @@ a set of OKs by the your authorizers and 1 OK by your Risk
 authorizer
 
 The risk authorizer should vote always yes and he says no only if the
-trip has a connection with one of those places because very dangerous:
+trip has a connection with one of those dangerous places:
 
  * NAP
  * ROM
@@ -19,7 +19,7 @@ trip has a connection with one of those places because very dangerous:
 The override authorizer can force the travel at anytime because he has the
 role to skip all other checks
 
-Each authorized can vote just once
+Each authorizer can vote just once
 
 Elephant Carpaccio
 ------------------
