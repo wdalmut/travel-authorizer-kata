@@ -10,13 +10,28 @@ class TravelManager
         $this->travel = $travel;
     }
 
+    /**
+     * @see addAuthorizer
+     *
+     * @deprecated
+     */
     public function setAuthorizer(Authorizer $authorizer)
     {
-        $this->authorizer = $authorizer;
+        $this->authorizer = [$authorizer];
+    }
+
+    public function addAuthorizer($authorizer)
+    {
+        $this->authorizer[] = $authorizer;
     }
 
     public function canTravel()
     {
-        return $this->authorizer->vote();
+        $vote = true;
+        foreach ($this->authorizer as $authorizer) {
+            $vote = $authorizer->vote() && $vote;
+        }
+
+        return $vote;
     }
 }

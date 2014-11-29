@@ -47,4 +47,43 @@ class TravelManagerSpec extends ObjectBehavior
 
         $this->canTravel()->shouldBe(false);
     }
+
+    function it_should_allow_multiple_authorizer(Authorizer $authorizer, Authorizer $authorizer2)
+    {
+        $this->addAuthorizer($authorizer);
+        $this->addAuthorizer($authorizer2);
+    }
+
+    function it_should_handle_split_decision_with_no(Authorizer $authorizer, Authorizer $authorizer2)
+    {
+        $authorizer->vote()->willReturn(true);
+        $authorizer2->vote()->willReturn(false);
+
+        $this->addAuthorizer($authorizer);
+        $this->addAuthorizer($authorizer2);
+
+        $this->canTravel()->shouldBe(false);
+    }
+
+    function it_should_handle_decision_with_no(Authorizer $authorizer, Authorizer $authorizer2)
+    {
+        $authorizer->vote()->willReturn(false);
+        $authorizer2->vote()->willReturn(false);
+
+        $this->addAuthorizer($authorizer);
+        $this->addAuthorizer($authorizer2);
+
+        $this->canTravel()->shouldBe(false);
+    }
+
+    function it_should_handle_decision_with_yes(Authorizer $authorizer, Authorizer $authorizer2)
+    {
+        $authorizer->vote()->willReturn(true);
+        $authorizer2->vote()->willReturn(true);
+
+        $this->addAuthorizer($authorizer);
+        $this->addAuthorizer($authorizer2);
+
+        $this->canTravel()->shouldBe(true);
+    }
 }
