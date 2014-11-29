@@ -4,6 +4,7 @@ class TravelManager
 {
     private $travel;
     private $authorizer;
+    private $riskAuthorizer;
 
     public function __construct(Travel $travel)
     {
@@ -33,7 +34,12 @@ class TravelManager
             $vote = $authorizer->vote() && $vote;
         }
 
-        return $vote;
+        $riskAuthorizerVote = true;
+        if ($this->riskAuthorizer) {
+            $riskAuthorizerVote = $this->riskAuthorizer->vote();
+        }
+
+        return $vote && $riskAuthorizerVote;
     }
 
     public function setRiskAuthorizer(RiskAuthorizer $authorizer)

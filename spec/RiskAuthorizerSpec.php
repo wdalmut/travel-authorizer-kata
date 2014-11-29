@@ -22,4 +22,20 @@ class RiskAuthorizerSpec extends ObjectBehavior
     {
         $this->vote()->shouldBe(true);
     }
+
+    function it_should_say_no_on_NAP_as_return(Travel $travel)
+    {
+        $travel->getDeparture()->willReturn("TRN");
+        $travel->getArrival()->willReturn("NAP");
+
+        $this->vote()->shouldBe(false);
+    }
+
+    function it_should_say_no_on_NAP_as_departure(Travel $travel)
+    {
+        $travel->getDeparture()->willReturn("NAP");
+        $travel->getArrival()->willReturn("TRN");
+
+        $this->vote()->shouldBe(false);
+    }
 }

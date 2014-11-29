@@ -100,4 +100,14 @@ class TravelManagerSpec extends ObjectBehavior
 
         $this->canTravel()->shouldBe(true);
     }
+
+    function it_should_handle_risk_travel_authorizer_no(Authorizer $authorizer, RiskAuthorizer $riskAuthorizer)
+    {
+        $authorizer->vote()->willReturn(true);
+        $this->addAuthorizer($authorizer);
+        $riskAuthorizer->vote()->willReturn(false);
+        $this->setRiskAuthorizer($riskAuthorizer);
+
+        $this->canTravel()->shouldBe(false);
+    }
 }
