@@ -5,6 +5,7 @@ class TravelManager
     private $travel;
     private $authorizer;
     private $riskAuthorizer;
+    private $overrideAuthorizer;
 
     public function __construct(Travel $travel)
     {
@@ -39,11 +40,25 @@ class TravelManager
             $riskAuthorizerVote = $this->riskAuthorizer->vote();
         }
 
+        $overrideAuthorizerVote = null;
+        if ($this->overrideAuthorizer) {
+            $overrideAuthorizerVote = $this->overrideAuthorizer->vote();
+        }
+
+        if ($overrideAuthorizerVote !== null) {
+            return $overrideAuthorizerVote;
+        }
+
         return $vote && $riskAuthorizerVote;
     }
 
     public function setRiskAuthorizer(RiskAuthorizer $authorizer)
     {
         $this->riskAuthorizer = $authorizer;
+    }
+
+    public function setOverrideAuthorizer($override)
+    {
+        $this->overrideAuthorizer = $override;
     }
 }

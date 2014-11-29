@@ -110,4 +110,33 @@ class TravelManagerSpec extends ObjectBehavior
 
         $this->canTravel()->shouldBe(false);
     }
+
+    function it_should_handle_the_override_authorizer(Authorizer $override)
+    {
+        $this->setOverrideAuthorizer($override);
+    }
+
+    function it_should_handle_the_vote_override_from_yes_to_no(Authorizer $authorizer, RiskAuthorizer $riskAuthorizer, Authorizer $override)
+    {
+        $authorizer->vote()->willReturn(true);
+        $riskAuthorizer->vote()->willReturn(true);
+        $override->vote()->willReturn(false);
+        $this->addAuthorizer($authorizer);
+        $this->setRiskAuthorizer($riskAuthorizer);
+        $this->setOverrideAuthorizer($override);
+
+        $this->canTravel()->shouldBe(false);
+    }
+
+    function it_should_flip_the_negative_vote_to_a_yes(Authorizer $authorizer, RiskAuthorizer $riskAuthorizer, Authorizer $override)
+    {
+        $authorizer->vote()->willReturn(false);
+        $riskAuthorizer->vote()->willReturn(false);
+        $override->vote()->willReturn(true);
+        $this->addAuthorizer($authorizer);
+        $this->setRiskAuthorizer($riskAuthorizer);
+        $this->setOverrideAuthorizer($override);
+
+        $this->canTravel()->shouldBe(true);
+    }
 }
