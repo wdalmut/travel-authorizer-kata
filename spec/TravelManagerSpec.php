@@ -6,6 +6,7 @@ use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Travel;
 use Authorizer;
+use RiskAuthorizer;
 
 class TravelManagerSpec extends ObjectBehavior
 {
@@ -83,6 +84,19 @@ class TravelManagerSpec extends ObjectBehavior
 
         $this->addAuthorizer($authorizer);
         $this->addAuthorizer($authorizer2);
+
+        $this->canTravel()->shouldBe(true);
+    }
+
+    function it_should_handle_the_risk_travel_authorizer(RiskAuthorizer $authorizer)
+    {
+        $this->setRiskAuthorizer($authorizer);
+    }
+
+    function it_should_handle_risk_travel_authorizer_yes(RiskAuthorizer $authorizer)
+    {
+        $authorizer->vote()->willReturn(true);
+        $this->setRiskAuthorizer($authorizer);
 
         $this->canTravel()->shouldBe(true);
     }

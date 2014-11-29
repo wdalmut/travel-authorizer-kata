@@ -8,6 +8,7 @@ class TravelManager
     public function __construct(Travel $travel)
     {
         $this->travel = $travel;
+        $this->authorizer = [];
     }
 
     /**
@@ -33,5 +34,10 @@ class TravelManager
         }
 
         return $vote;
+    }
+
+    public function setRiskAuthorizer(RiskAuthorizer $authorizer)
+    {
+        $this->riskAuthorizer = $authorizer;
     }
 }
